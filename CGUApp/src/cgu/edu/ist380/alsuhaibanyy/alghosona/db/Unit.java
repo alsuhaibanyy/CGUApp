@@ -1,10 +1,10 @@
 package cgu.edu.ist380.alsuhaibanyy.alghosona.db;
 
-public class unit {
+public class Unit {
 	
 	private int mUnitID;
 	private String mUnitName;
-	private int mUnitCategory;
+	private String mUnitCategory;
 	private Building mBuildingID;
 	
 	public int getmUnitID() {
@@ -19,10 +19,10 @@ public class unit {
 	public void setmUnitName(String mUnitName) {
 		this.mUnitName = mUnitName;
 	}
-	public int getmUnitCategory() {
+	public String getmUnitCategory() {
 		return mUnitCategory;
 	}
-	public void setmUnitCategory(int mUnitCategory) {
+	public void setmUnitCategory(String mUnitCategory) {
 		this.mUnitCategory = mUnitCategory;
 	}
 	public Building getmBuildingID() {

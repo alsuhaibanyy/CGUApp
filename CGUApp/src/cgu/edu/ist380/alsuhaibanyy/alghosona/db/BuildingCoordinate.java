@@ -1,10 +1,10 @@
 package cgu.edu.ist380.alsuhaibanyy.alghosona.db;
 
-public class building_coordinate {
+public class BuildingCoordinate {
 	
 	private long mLongitude;
 	private long mLatitude;
-	private Building mBuildingID;
+	private int mBuildingID;
 	public long getmLongitude() {
 		return mLongitude;
 	}
@@ -17,10 +17,10 @@ public class building_coordinate {
 	public void setmLatitude(long mLatitude) {
 		this.mLatitude = mLatitude;
 	}
-	public Building getmBuildingID() {
+	public int getmBuildingID() {
 		return mBuildingID;
 	}
-	public void setmBuildingID(Building mBuildingID) {
+	public void setmBuildingID(int mBuildingID) {
 		this.mBuildingID = mBuildingID;
 	}
 }
