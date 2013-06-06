@@ -37,7 +37,6 @@ public class MainActivity extends Activity {
 	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayCGUWebsite");     
 	               startActivity(i); }});
 	
-	
 	}
 
 	@Override
