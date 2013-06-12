@@ -54,15 +54,15 @@ values.put(   MySQLiteHelper.COORDINATE_COLUMN_BUILDING_ID,buildingCoordinate.ge
 
 /* call the insert method on the database
  * 
- * Since the method only retuns a number of type "long", I need to downcasted to int to be able to update 
+ * Since the method only retuns a number of type "double", I need to downcasted to int to be able to update 
  * the id in my buildingCoordinate object.  buildingCoordinate.setId((int)insertedId);
  */
 return buildingCoordinate;
 }
 
 public void deleteBuildingCoordinate(BuildingCoordinate buildingCoordinate) {
-long intLongitude = buildingCoordinate.getmLongitude();
-long intLatitude = buildingCoordinate.getmLatitude();
+double intLongitude = buildingCoordinate.getmLongitude();
+double intLatitude = buildingCoordinate.getmLatitude();
 database.delete(MySQLiteHelper.TABLE_COORDINATE, MySQLiteHelper.COORDINATE_COLUMN_LONGITUDE
     + " = " + intLongitude + " AND " + MySQLiteHelper.COORDINATE_COLUMN_LATITUDE
     + " = " + intLatitude , null);
@@ -93,9 +93,9 @@ return buildingCoordinateList;
 private BuildingCoordinate cursorToBuildingCoordinate(Cursor cursor) {
 	BuildingCoordinate buildingCoordinate = new BuildingCoordinate ();
 // get the values from the cursor 
-	long lngLongtitude =  cursor.getLong(cursor.getColumnIndexOrThrow(MySQLiteHelper.COORDINATE_COLUMN_LONGITUDE));
-	long lngLatitude =  cursor.getLong(cursor.getColumnIndexOrThrow(MySQLiteHelper.COORDINATE_COLUMN_LATITUDE));
-int intBuildingID=cursor.getInt(cursor.getColumnIndexOrThrow(MySQLiteHelper.COORDINATE_COLUMN_BUILDING_ID));
+	double lngLongtitude =  cursor.getLong(cursor.getColumnIndexOrThrow(MySQLiteHelper.COORDINATE_COLUMN_LONGITUDE));
+	double lngLatitude =  cursor.getLong(cursor.getColumnIndexOrThrow(MySQLiteHelper.COORDINATE_COLUMN_LATITUDE));
+	int intBuildingID=cursor.getInt(cursor.getColumnIndexOrThrow(MySQLiteHelper.COORDINATE_COLUMN_BUILDING_ID));
 buildingCoordinate.setmLongitude(lngLongtitude);
 buildingCoordinate.setmLatitude(lngLatitude);
 buildingCoordinate.setmBuildingID(intBuildingID);

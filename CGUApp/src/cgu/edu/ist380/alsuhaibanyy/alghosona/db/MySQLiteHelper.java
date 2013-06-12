@@ -49,8 +49,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_CREATE_TABLE_COORDINATE = "create table "+ TABLE_COORDINATE
 			+ "(" 
-			+ COORDINATE_COLUMN_LONGITUDE + " integer primary key, "
-			+ COORDINATE_COLUMN_LATITUDE + " integer primary key," 
+			+ COORDINATE_COLUMN_LONGITUDE + " REAL primary key, "
+			+ COORDINATE_COLUMN_LATITUDE + " REAL primary key," 
 			+ COORDINATE_COLUMN_BUILDING_ID + " integer not null" 
 	 		 // no comma after last column
 			+ ")";
