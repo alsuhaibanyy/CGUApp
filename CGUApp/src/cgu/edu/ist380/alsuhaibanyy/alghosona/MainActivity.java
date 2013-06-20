@@ -188,8 +188,10 @@ private class NetworkTask extends AsyncTask<String, Integer, String[]> {
     protected void onPostExecute(String result[]) {
          
     	//Display 
-    	tvCurrentBuilding.setText(result[0]);
-    	
+    	if(result.length > 0)
+    		tvCurrentBuilding.setText(result[0]);
+    	else
+    		tvCurrentBuilding.setText("Sorry, Can't find your location");
    // 	ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.feature,result);
        // lv.setAdapter(adapter); // link the result to the list view
         
