@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <Spinner
-        android:id="@+id/Spinner_Building_Location"
+        android:id="@+id/CGUBuildingsSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -16,7 +16,7 @@
         android:text="Building Name: School of Information Systems and Technology" />
 
     <TextView
-        android:id="@+id/tvCurrentBuilding"
+        android:id="@+id/CurrentBuildingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Building No. : 1" />

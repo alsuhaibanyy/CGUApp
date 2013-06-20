@@ -12,7 +12,7 @@
         android:text="Current Location" />
 
     <Spinner
-        android:id="@+id/Spinner_Building_Location"
+        android:id="@+id/CGUBuildingsSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

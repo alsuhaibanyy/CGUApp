@@ -25,7 +25,7 @@
         android:text="You are in:" />
 
     <ProgressBar
-        android:id="@+id/progressBar1"
+        android:id="@+id/GPSProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
@@ -33,22 +33,22 @@
         android:layout_marginLeft="104dp" />
 
     <TextView
-        android:id="@+id/tvCurrentBuilding"
+        android:id="@+id/CurrentBuildingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_alignTop="@+id/progressBar1"
+        android:layout_alignTop="@+id/GPSProgressBar"
         android:layout_marginTop="14dp"
-        android:layout_toLeftOf="@+id/button1"
+        android:layout_toLeftOf="@+id/ShowCurrentBuildingDetailsButton"
         android:text="TextView" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/ShowCurrentBuildingDetailsButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvCurrentBuilding"
-        android:layout_alignBottom="@+id/tvCurrentBuilding"
+        android:layout_alignBaseline="@+id/CurrentBuildingTextView"
+        android:layout_alignBottom="@+id/CurrentBuildingTextView"
         android:layout_alignRight="@+id/textView1"
         android:text="Details..." />
 
@@ -56,13 +56,13 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button1"
-        android:layout_below="@+id/progressBar1"
+        android:layout_alignRight="@+id/ShowCurrentBuildingDetailsButton"
+        android:layout_below="@+id/GPSProgressBar"
         android:layout_marginTop="14dp"
         android:text="Go to:" />
 
     <Spinner
-        android:id="@+id/Spinner_Building_Location"
+        android:id="@+id/CGUBuildingsSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
@@ -72,8 +72,8 @@
         android:id="@+id/Button_Location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Spinner_Building_Location"
-        android:layout_below="@+id/Spinner_Building_Location"
+        android:layout_alignLeft="@+id/CGUBuildingsSpinner"
+        android:layout_below="@+id/CGUBuildingsSpinner"
         android:layout_marginTop="26dp"
         android:text="CGU Map" />
 

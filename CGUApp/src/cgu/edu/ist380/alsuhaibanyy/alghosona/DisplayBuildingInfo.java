@@ -18,7 +18,7 @@ public class DisplayBuildingInfo extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_building_info); {
         	
-        	spBuildingName = (Spinner) findViewById(R.id.Spinner_Building_Location);
+        	spBuildingName = (Spinner) findViewById(R.id.CGUBuildingsSpinner);
         	List<String> lBuildingName = new ArrayList<String>();
         	lBuildingName.add("SISAT");
         	lBuildingName.add("Druker");
