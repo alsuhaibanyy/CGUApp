@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <Button
+        android:id="@+id/Button_Location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Current Location" />
+
     <Spinner
         android:id="@+id/Spinner_Building_Location"
         android:layout_width="match_parent"
@@ -13,18 +20,12 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Building Name: School of Information Systems and Technology" />
+        android:text="Go to:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/tvCurrentBuilding"
+    <Spinner
+        android:id="@+id/Spinner_Building_Destination_Location"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Building No. : 1" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="More info comes here" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

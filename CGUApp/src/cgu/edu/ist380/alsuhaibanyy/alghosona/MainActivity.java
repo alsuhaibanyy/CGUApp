@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Button btnCGUMap = (Button) findViewById(R.id.Button_CGUMap);
+		Button btnCGUMap = (Button) findViewById(R.id.Button_Location);
 		Button btnBuildingInfo = (Button) findViewById(R.id.Button_BuildingInfo);
 		Button btnCGUWebsite = (Button) findViewById(R.id.Button_CGUWebsite);
 		
