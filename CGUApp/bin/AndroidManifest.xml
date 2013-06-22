@@ -29,6 +29,7 @@
         <activity android:name="DisplayMap"></activity>
         <activity android:name="DisplayBuildingInfo"></activity>
         <activity android:name="DisplayCGUWebsite"></activity>
+        <activity android:name=".DisplayDirections"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

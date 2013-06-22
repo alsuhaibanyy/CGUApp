@@ -60,6 +60,8 @@ public class MainActivity extends Activity {
 		Button btnBuildingInfo = (Button) findViewById(R.id.Button_BuildingInfo);
 		Button btnCGUWebsite = (Button) findViewById(R.id.Button_CGUWebsite);
 		
+		Button btnShowDirections = (Button) findViewById(R.id.ShowDirectionsButton);
+		
 		
 		btnCGUMap.setOnClickListener(new OnClickListener() {
 	           public void onClick(View v) {
@@ -78,7 +80,13 @@ public class MainActivity extends Activity {
 	               Intent i = new Intent();
 	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayCGUWebsite");     
 	               startActivity(i); }});
-	
+		
+		btnShowDirections.setOnClickListener(new OnClickListener() {
+	           public void onClick(View v) {
+	               Intent i = new Intent();
+	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayDirections");     
+	               startActivity(i); }});	
+		
 	}
 
 	@Override
@@ -161,9 +169,7 @@ public void onProviderEnabled(String provider)
 
 {
 
-Toast.makeText( context,
-
-"Gps Enabled",
+Toast.makeText( context,"Gps Enabled",
 
 Toast.LENGTH_SHORT).show();
 
