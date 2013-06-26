@@ -12,6 +12,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,11 +31,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 public class MainActivity extends Activity {
 	
 	ProgressBar bar;
 	TextView tvCurrentBuilding;
 	Context mContext;
+	double mSourceLat;
+    double mSourceLong;
+    
+    double mDestinationLat;
+    double mDestinationLong;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,7 @@ public class MainActivity extends Activity {
         
         LocationManager mlocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         String strGPSInfo = null;
-        LocationListener mlocListener = new MyLocationListener(getApplicationContext(),tvCurrentBuilding,bar);
+        LocationListener mlocListener = new MyLocationListener(getApplicationContext(),tvCurrentBuilding,bar, mSourceLat, mSourceLong);
   
   	   mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
        bar.setVisibility(View.VISIBLE);
@@ -84,8 +92,27 @@ public class MainActivity extends Activity {
 		btnShowDirections.setOnClickListener(new OnClickListener() {
 	           public void onClick(View v) {
 	               Intent i = new Intent();
-	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayDirections");     
+	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayDirections");
 	               startActivity(i); }});	
+	            
+
+    				// pass values to the next intent
+    				
+	               mDestinationLat = 34.102957;
+	               mDestinationLong = -117.714248;
+	               
+	               mSourceLat = 34.102957;
+	               mSourceLong = -117.714248;
+
+    				/*i.putExtra("SourceLat", Double.toString(mSourceLat));
+    				i.putExtra("SourceLong", Double.toString(mSourceLong));
+    				i.putExtra("DestinationLat", Double.toString(mDestinationLat));
+    				i.putExtra("DestinationLong", Double.toString(mDestinationLong));
+    				 */
+
+    				// start the sample activity
+	               
+	               
 		
 	}
 
@@ -106,13 +133,17 @@ class MyLocationListener implements LocationListener{
     	TextView mCurrentBuilding;
 	 ProgressBar bar;
 	 Context context;
+	 double mSourceLat;
+	    double mSourceLong;
 	 
 	 
-	 public MyLocationListener (Context context,TextView tvCurrentBuilding,ProgressBar bar)
+	 public MyLocationListener (Context context,TextView tvCurrentBuilding,ProgressBar bar, Double dblSourceLat, Double dblSourceLong)
 	 {
 		 this.context = context;
 		 mCurrentBuilding = tvCurrentBuilding;
 		 this.bar = bar;
+		  mSourceLat = dblSourceLat;
+		  mSourceLong = dblSourceLong;
 	 }
 	 
 
@@ -122,9 +153,9 @@ public void onLocationChanged(Location loc)
 
 {
 
-loc.getLatitude();
+	mSourceLat = loc.getLatitude();
 
-loc.getLongitude();
+	mSourceLong = loc.getLongitude();
 
 
 NetworkTask task = new NetworkTask(); // call service in a separate thread 

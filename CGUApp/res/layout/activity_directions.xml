@@ -4,9 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <WebView
-        android:id="@+id/webView_GoogleDirections"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="207dp"
+        android:layout_marginTop="10dp" />
+        
+         <WebView
+    android:id="@+id/webView_GoogleDirections"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" /> 
+    
 
 </LinearLayout>
