@@ -4,27 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Spinner
-        android:id="@+id/CGUBuildingsSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+ <Spinner
+     android:id="@+id/CGUBuildingsSpinner"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:drawSelectorOnTop="true" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/BuildingIDTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Building Name: School of Information Systems and Technology" />
+        android:text="Building ID:" />
 
     <TextView
-        android:id="@+id/CurrentBuildingTextView"
+        android:id="@+id/SchoolNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Building No. : 1" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="More info comes here" />
-
+        android:text="School Name:" />
+ 
 </LinearLayout>
