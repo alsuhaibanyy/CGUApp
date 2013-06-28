@@ -54,25 +54,24 @@ public class DisplayDirections extends FragmentActivity{
         setContentView(R.layout.activity_directions); 
         
 
-        //wvGoogleDirections = (WebView) findViewById(R.id.webView_GoogleDirections);
-        //wvGoogleDirections.getSettings().setJavaScriptEnabled(true);
-     //   wvGoogleDirections.loadUrl("https://maps.google.com/?q=from+34.102401,-117.714343+to+34.102175,-117.712348");
-        //wvGoogleDirections.loadUrl("http://www.bing.com/maps/?FORM=HDRSC4#Y3A9MzQuMTUyNjMwfi0xMTcuNTc5MTA5Jmx2bD00JnN0eT1yJnJ0cD1wb3MuMzQuMTAyNjEyXy0xMTcuNTczODM3X1JhbmNobyUyMEN1Y2Ftb25nYSUyQyUyMENBX19fZV9+cG9zLjM0LjA5NjEwMF8tMTE3LjcxNjQwMF9DbGFyZW1vbnQlMkMlMjBDQV9fX2VfJm1vZGU9RCZydG9wPTB+MH4wfg==");
         
-        //Intent i = getIntent();
+       Intent i = getIntent();
        
-        double dblDestinationLat = 34.102999;
-        double dblDestinationLong = -117.714248;
+       
+     double dblSourceLat= Double.parseDouble(i.getStringExtra("SourceLat"));
+        double dblSourceLong= Double.parseDouble(i.getStringExtra("SourceLong"));
         
-        double dblSourceLat = 34.102957;
-        double dblSourceLong = -117.714000;
-     //   double dblSourceLat= Double.parseDouble(i.getStringExtra("SourceLat"));
-       // double dblSourceLong= Double.parseDouble(i.getStringExtra("SourceLong"));
+        double dblDestinationLat= Double.parseDouble(i.getStringExtra("DestinationLat"));
+        double dblDestinationLong= Double.parseDouble(i.getStringExtra("DestinationLong"));
         
-       // double dblDestinationLat= Double.parseDouble(i.getStringExtra("DestinationLat"));
-       // double dblDestinationLong= Double.parseDouble(i.getStringExtra("DestinationLong"));
-        
-        
+        wvGoogleDirections = (WebView) findViewById(R.id.webView_GoogleDirections);
+        wvGoogleDirections.getSettings().setJavaScriptEnabled(true);
+        wvGoogleDirections.setWebViewClient(new WebViewClient());
+        wvGoogleDirections.getSettings().setJavaScriptEnabled(true);
+        wvGoogleDirections.getSettings().setBuiltInZoomControls(true);
+        wvGoogleDirections.getSettings().setSupportZoom(true);
+        wvGoogleDirections.loadUrl("http://maps.google.com/maps?q&saddr="+dblSourceLat+","+dblSourceLong+"&daddr="+dblDestinationLat+","+dblDestinationLong);
+
         
 		final LatLng SourceLatLng = new LatLng(dblSourceLat, dblSourceLong);
 		final LatLng DestinationLatLng = new LatLng(dblDestinationLat, dblDestinationLong);
@@ -85,7 +84,7 @@ public class DisplayDirections extends FragmentActivity{
          SupportMapFragment m= (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map); 
  		 mMap= m.getMap();
  		 
- 		mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+ 		mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 		final LatLngBounds.Builder builder = new LatLngBounds.Builder();
 		builder.include(SourceLatLng);
 		builder.include(DestinationLatLng);
@@ -94,19 +93,12 @@ public class DisplayDirections extends FragmentActivity{
 		mMap.setOnCameraChangeListener(new OnCameraChangeListener() {
 			@Override 
             public void onCameraChange(CameraPosition arg0) {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(),150)) ;
+                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(),100)) ;
                 mMap.setOnCameraChangeListener(null);
             }
         });
          
-         //map = (WebView) findViewById(R.id.dir);
-         //map.getSettings().setJavaScriptEnabled(true);
- 	     //map.setWebViewClient(new WebViewClient());
- 	     //map.getSettings().setJavaScriptEnabled(true);
- 	     //map.getSettings().setBuiltInZoomControls(true);
- 	     //map.getSettings().setSupportZoom(true);
- 	     //map.loadUrl("http://maps.google.com/maps?q&saddr="+lat+","+lang+"&daddr="+h.getName());
-    
+        
 	}
 
 	

@@ -93,23 +93,22 @@ public class MainActivity extends Activity {
 	           public void onClick(View v) {
 	               Intent i = new Intent();
 	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayDirections");
-	               startActivity(i); }});	
-	            
-
-    				// pass values to the next intent
-    				
-	               mDestinationLat = 34.102957;
-	               mDestinationLong = -117.714248;
+	   				// pass values to the next intent
+   				
+	               mDestinationLat = 34.102086;
+	               mDestinationLong = -117.712584;
 	               
-	               mSourceLat = 34.102957;
-	               mSourceLong = -117.714248;
+	              // mSourceLat = 34.102326;
+	               //mSourceLong = -117.714375;
+	               
 
-    				/*i.putExtra("SourceLat", Double.toString(mSourceLat));
+    				i.putExtra("SourceLat", Double.toString(mSourceLat));
     				i.putExtra("SourceLong", Double.toString(mSourceLong));
     				i.putExtra("DestinationLat", Double.toString(mDestinationLat));
     				i.putExtra("DestinationLong", Double.toString(mDestinationLong));
-    				 */
+	               startActivity(i); }});	
 
+    				 
     				// start the sample activity
 	               
 	               
@@ -133,8 +132,6 @@ class MyLocationListener implements LocationListener{
     	TextView mCurrentBuilding;
 	 ProgressBar bar;
 	 Context context;
-	 double mSourceLat;
-	    double mSourceLong;
 	 
 	 
 	 public MyLocationListener (Context context,TextView tvCurrentBuilding,ProgressBar bar, Double dblSourceLat, Double dblSourceLong)
@@ -142,8 +139,6 @@ class MyLocationListener implements LocationListener{
 		 this.context = context;
 		 mCurrentBuilding = tvCurrentBuilding;
 		 this.bar = bar;
-		  mSourceLat = dblSourceLat;
-		  mSourceLong = dblSourceLong;
 	 }
 	 
 
@@ -164,15 +159,12 @@ task.execute("http://134.173.236.80:6080/arcgis/rest/services/claremont_colleges
 
 
 //String Text = "My current location is: " +
-
 //"\nLatitud = " + loc.getLatitude() +
-
 //"\nLongitud = " + loc.getLongitude();
 
 // show location to user
 bar.setVisibility(View.INVISIBLE);
 //loading.setVisibility(View.INVISIBLE);
-
 
 //mCurrentBuilding.setText(Text);
 
