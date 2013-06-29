@@ -40,33 +40,22 @@ public class DisplayBuildingInfo extends Activity implements OnItemSelectedListe
 	public TextView tvSchoolName;
 	
 	
-	private String[] items={"Android","Bluetooth","Chrome","Docs","Email",
-        "Facebook","Google","Hungary","Iphone","Korea","Machintosh",
-        "Nokia","Orkut","Picasa","Singapore","Turkey","Windows","Youtube"};
-	
-	 /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_building_info); 
+        
+    	spBuildingName = (Spinner) findViewById(R.id.CGUBuildingsSpinner);
+
         	NetworkTask task = new NetworkTask(); // call service in a separate thread 
+        	
+        	
         	task.execute("http://134.173.236.80:6080/arcgis/rest/services/claremont_colleges_buildings/MapServer/1/query?where=&text=&objectIds=&time=&geometry=q&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=ID%2CBuilding%2CSchool%2CLat%2CLon&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=pjson"); 
 
-        	spBuildingName = (Spinner) findViewById(R.id.CGUBuildingsSpinner);
 			 tvBuildingID = (TextView) findViewById(R.id.BuildingIDTextView);
          	 tvSchoolName = (TextView) findViewById(R.id.SchoolNameTextView);
 
 			 spBuildingName.setOnItemSelectedListener(this);
-//tvBuildingID.setText(mBuildingName.size());
-     String [] x = new String[mBuildingName.size()];
-     int y = mBuildingName.size();
-     
-     
-     //tvSchoolName.setText(mBuildingName.get(0).toString());
- 	Log.d("Status", String.valueOf(y)); // get the status if 200 then OK 
- 	tvSchoolName.setText(Integer.toString(y));
- 	
-       
 
         }
         @Override
@@ -81,7 +70,6 @@ public class DisplayBuildingInfo extends Activity implements OnItemSelectedListe
         			//Toast.makeText(getBaseContext(), list.get(position), Toast.LENGTH_SHORT).show(); 	
                 
 
-        	String res="";
         	int i=0;
         	boolean found = false;
         	while(i < mBuildingName.size() && !found)	
@@ -98,10 +86,7 @@ public class DisplayBuildingInfo extends Activity implements OnItemSelectedListe
             	tvBuildingID.setText("School ID: " + mBuildingID.get(i));				
             	tvSchoolName.setText("School Name: " + mSchoolName.get(i));
         	}			
-        
-
-     				
-     			}
+        	}
 
         @Override
     	public void onNothingSelected(AdapterView arg0) {
@@ -154,7 +139,6 @@ public class DisplayBuildingInfo extends Activity implements OnItemSelectedListe
     				
     				
     				int n = fields.length();
-    				result= new String [n];
     				for(int i=0;i<n ; i++)
     				{ 
     					Log.d("JSON", fields.getJSONObject(i).getJSONObject("attributes").toString());

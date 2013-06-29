@@ -40,17 +40,7 @@
         android:layout_alignTop="@+id/GPSProgressBar"
         android:layout_marginTop="14dp"
         android:layout_toLeftOf="@+id/ShowCurrentBuildingDetailsButton"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/ShowDirectionsButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/CurrentBuildingTextView"
-        android:layout_alignBottom="@+id/CurrentBuildingTextView"
-        android:layout_alignRight="@+id/textView1"
-        android:text="Details..." />
+        android:text="" />
 
     <TextView
         android:id="@+id/textView2"
@@ -59,40 +49,49 @@
         android:layout_alignRight="@+id/ShowCurrentBuildingDetailsButton"
         android:layout_below="@+id/GPSProgressBar"
         android:layout_marginTop="14dp"
-        android:text="Go to:" />
+        android:text="Directions to" />
 
     <Spinner
-        android:id="@+id/CGUBuildingsSpinner"
+        android:id="@+id/AllCGUBuildingsSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2" />
 
     <Button
-        android:id="@+id/Button_Location"
+        android:id="@+id/Button_CGUWebsite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/CGUBuildingsSpinner"
-        android:layout_below="@+id/CGUBuildingsSpinner"
-        android:layout_marginTop="26dp"
-        android:text="CGU Map" />
+        android:layout_alignLeft="@+id/Button_BuildingInfo"
+        android:layout_alignParentBottom="true"
+        android:text="Visit CGU Website" />
 
     <Button
         android:id="@+id/Button_BuildingInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/Button_CGUWebsite"
         android:layout_alignLeft="@+id/Button_Location"
-        android:layout_below="@+id/Button_Location"
-        android:layout_marginTop="18dp"
+        android:layout_marginBottom="20dp"
         android:text="CGU Building Information" />
 
     <Button
-        android:id="@+id/Button_CGUWebsite"
+        android:id="@+id/Button_Location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Button_BuildingInfo"
-        android:layout_below="@+id/Button_BuildingInfo"
-        android:layout_marginTop="15dp"
-        android:text="Visit CGU Website" />
+        android:layout_above="@+id/Button_BuildingInfo"
+        android:layout_alignLeft="@+id/AllCGUBuildingsSpinner"
+        android:layout_marginBottom="20dp"
+        android:text="CGU Map" />
+
+    <Button
+        android:id="@+id/ShowDirectionsButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/GPSProgressBar"
+        android:layout_below="@+id/AllCGUBuildingsSpinner"
+        android:layout_marginTop="19dp"
+        android:text="Go" />
 
 </RelativeLayout>
