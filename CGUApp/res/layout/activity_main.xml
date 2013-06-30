@@ -53,7 +53,7 @@
 
     <Spinner
         android:id="@+id/AllCGUBuildingsSpinner"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
@@ -62,8 +62,8 @@
     <Button
         android:id="@+id/ShowDirectionsButton"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_height="47dp"
         android:layout_alignRight="@+id/textView2"
         android:layout_alignTop="@+id/AllCGUBuildingsSpinner"
         android:text="Go" />

@@ -14,12 +14,24 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +41,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DisplayBuildingInfo extends Activity implements OnItemSelectedListener{
+public class DisplayBuildingInfo extends FragmentActivity implements OnItemSelectedListener{
 	public TextView tvBuildingID;
 	public Spinner spBuildingName;
 	public List<String> mBuildingID = new ArrayList<String>();
@@ -38,6 +50,8 @@ public class DisplayBuildingInfo extends Activity implements OnItemSelectedListe
 	public List<Double> mLatitude = new ArrayList<Double>();
 	public List<Double> mLongitude= new ArrayList<Double>();
 	public TextView tvSchoolName;
+	public GoogleMap mMap;
+
 	
 	
     @Override
@@ -45,7 +59,17 @@ public class DisplayBuildingInfo extends Activity implements OnItemSelectedListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_building_info); 
         
+        
+        SupportMapFragment m= (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.buildingmap); 
+
+    	 mMap= m.getMap();
+
+    	
+   	 mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+   	 
     	spBuildingName = (Spinner) findViewById(R.id.CGUBuildingsSpinner);
+    	
+        
 
         	NetworkTask task = new NetworkTask(); // call service in a separate thread 
         	
@@ -85,6 +109,29 @@ public class DisplayBuildingInfo extends Activity implements OnItemSelectedListe
         	{				
             	tvBuildingID.setText("School ID: " + mBuildingID.get(i));				
             	tvSchoolName.setText("School Name: " + mSchoolName.get(i));
+            	
+            	final LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+
+             	 final LatLng BuildingLatLng = new LatLng(mLatitude.get(i), mLongitude.get(i));
+                 
+                           
+             	  
+
+                  builder.include(BuildingLatLng);
+                  Marker mrkDestinationMarker = mMap.addMarker(new MarkerOptions().position(BuildingLatLng).title(mBuildingName.get(i)).snippet(mSchoolName.get(i)).icon(BitmapDescriptorFactory.fromResource(R.drawable.cgulogo)));
+                
+
+           	 mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(),100)) ;
+           	
+        	 mMap.setOnCameraChangeListener(new OnCameraChangeListener() {
+                 @Override 
+                             public void onCameraChange(CameraPosition arg0) {
+                                 mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(),100)) ;
+                                 mMap.setOnCameraChangeListener(null);
+                             }
+                         });
+
         	}			
         	}
 

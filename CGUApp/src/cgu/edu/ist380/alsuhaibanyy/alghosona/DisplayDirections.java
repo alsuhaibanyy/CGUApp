@@ -86,7 +86,7 @@ final LatLngBounds.Builder builder = new LatLngBounds.Builder();
 builder.include(SourceLatLng);
 builder.include(DestinationLatLng);
 Marker mrkSourceMarker = mMap.addMarker(new MarkerOptions().position(SourceLatLng).title("My Location"));
-Marker mrkDestinationMarker = mMap.addMarker(new MarkerOptions().position(DestinationLatLng).title(i.getStringExtra("BuildingName")).snippet(i.getStringExtra("SchoolName")).icon(BitmapDescriptorFactory.fromResource(R.drawable.cgumap)));
+Marker mrkDestinationMarker = mMap.addMarker(new MarkerOptions().position(DestinationLatLng).title(i.getStringExtra("BuildingName")).snippet(i.getStringExtra("SchoolName")).icon(BitmapDescriptorFactory.fromResource(R.drawable.cgulogo)));
            
 
 

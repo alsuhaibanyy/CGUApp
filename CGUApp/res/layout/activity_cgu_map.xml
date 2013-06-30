@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <ImageView
-        android:id="@+id/imageView1"
+<!--  -->
+    <fragment
+        android:id="@+id/cgumap"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/cgumap" />
-
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp" />
+!>
 </LinearLayout>
