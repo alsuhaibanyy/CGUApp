@@ -44,6 +44,7 @@ double mSourceLat;
     
     double mDestinationLat;
     double mDestinationLong;
+    Button btnShowDirections;
     
 public List<String> mBuildingID = new ArrayList<String>();
 public List<String> mBuildingName = new ArrayList<String>();
@@ -82,8 +83,8 @@ tvCurrentBuilding.setText(strGPSInfo);
 Button btnCGUMap = (Button) findViewById(R.id.Button_Location);
 Button btnBuildingInfo = (Button) findViewById(R.id.Button_BuildingInfo);
 Button btnCGUWebsite = (Button) findViewById(R.id.Button_CGUWebsite);
-Button btnShowDirections = (Button) findViewById(R.id.ShowDirectionsButton);
-
+btnShowDirections = (Button) findViewById(R.id.ShowDirectionsButton);
+btnShowDirections.setEnabled(false);
 btnCGUMap.setOnClickListener(new OnClickListener() {
           public void onClick(View v) {
               Intent i = new Intent();
@@ -183,6 +184,8 @@ task.execute("http://134.173.236.80:6080/arcgis/rest/services/claremont_colleges
 
 // show location to user
 bar.setVisibility(View.INVISIBLE);
+btnShowDirections.setEnabled(true);
+
 //loading.setVisibility(View.INVISIBLE);
 
 //mCurrentBuilding.setText(Text);
@@ -312,7 +315,7 @@ private class NetworkTask extends AsyncTask<String, Integer, String[]> {
     if(result.length > 0)
     tvCurrentBuilding.setText(result[0]);
     else
-    tvCurrentBuilding.setText("Sorry, Can't find your location");
+    tvCurrentBuilding.setText("You are not at any of CGU buildings");
    // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.feature,result);
        // lv.setAdapter(adapter); // link the result to the list view
         
