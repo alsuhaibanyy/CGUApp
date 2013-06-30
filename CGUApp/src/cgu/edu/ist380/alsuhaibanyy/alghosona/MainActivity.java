@@ -36,40 +36,38 @@ import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
-	
-	ProgressBar bar;
-	TextView tvCurrentBuilding;
-	Context mContext;
-	double mSourceLat;
+ProgressBar bar;
+TextView tvCurrentBuilding;
+Context mContext;
+double mSourceLat;
     double mSourceLong;
     
     double mDestinationLat;
     double mDestinationLong;
     
-	public List<String> mBuildingID = new ArrayList<String>();
-	public List<String> mBuildingName = new ArrayList<String>();
-	public List<String> mSchoolName = new ArrayList<String>();
-	public List<Double> mLatitude = new ArrayList<Double>();
-	public List<Double> mLongitude= new ArrayList<Double>();
-	public Spinner spBuildingName;
+public List<String> mBuildingID = new ArrayList<String>();
+public List<String> mBuildingName = new ArrayList<String>();
+public List<String> mSchoolName = new ArrayList<String>();
+public List<Double> mLatitude = new ArrayList<Double>();
+public List<Double> mLongitude= new ArrayList<Double>();
+public Spinner spBuildingName;
 
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-		 mContext = this.getApplicationContext();
-	    	spBuildingName = (Spinner) findViewById(R.id.AllCGUBuildingsSpinner);
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+mContext = this.getApplicationContext();
+   	spBuildingName = (Spinner) findViewById(R.id.AllCGUBuildingsSpinner);
 
 
-			AllBuildingNetworkTask task = new AllBuildingNetworkTask(); // call service in a separate thread 
-	    	task.execute("http://134.173.236.80:6080/arcgis/rest/services/claremont_colleges_buildings/MapServer/1/query?where=&text=&objectIds=&time=&geometry=q&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=ID%2CBuilding%2CSchool%2CLat%2CLon&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=pjson"); 
+AllBuildingNetworkTask task = new AllBuildingNetworkTask(); // call service in a separate thread 
+   	task.execute("http://134.173.236.80:6080/arcgis/rest/services/claremont_colleges_buildings/MapServer/1/query?where=&text=&objectIds=&time=&geometry=q&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=ID%2CBuilding%2CSchool%2CLat%2CLon&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=pjson"); 
 
 
-		 
-		bar = (ProgressBar) findViewById(R.id.GPSProgressBar);
-		tvCurrentBuilding = (TextView) findViewById(R.id.CurrentBuildingTextView);
+ 
+bar = (ProgressBar) findViewById(R.id.GPSProgressBar);
+tvCurrentBuilding = (TextView) findViewById(R.id.CurrentBuildingTextView);
         bar.setVisibility(View.INVISIBLE);
         tvCurrentBuilding.setVisibility(View.INVISIBLE);
         
@@ -77,100 +75,91 @@ public class MainActivity extends Activity {
         String strGPSInfo = null;
         LocationListener mlocListener = new MyLocationListener(getApplicationContext(),tvCurrentBuilding,bar, mSourceLat, mSourceLong);
   
-  	   mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+    mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
        bar.setVisibility(View.VISIBLE);
        tvCurrentBuilding.setVisibility(View.VISIBLE);
-		tvCurrentBuilding.setText(strGPSInfo);
-		Button btnCGUMap = (Button) findViewById(R.id.Button_Location);
-		Button btnBuildingInfo = (Button) findViewById(R.id.Button_BuildingInfo);
-		Button btnCGUWebsite = (Button) findViewById(R.id.Button_CGUWebsite);
-		
-		Button btnShowDirections = (Button) findViewById(R.id.ShowDirectionsButton);
-		
+tvCurrentBuilding.setText(strGPSInfo);
+Button btnCGUMap = (Button) findViewById(R.id.Button_Location);
+Button btnBuildingInfo = (Button) findViewById(R.id.Button_BuildingInfo);
+Button btnCGUWebsite = (Button) findViewById(R.id.Button_CGUWebsite);
+Button btnShowDirections = (Button) findViewById(R.id.ShowDirectionsButton);
 
-		
-		btnCGUMap.setOnClickListener(new OnClickListener() {
-	           public void onClick(View v) {
-	               Intent i = new Intent();
-	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayMap");     
-	               startActivity(i); }});	
-		
-		btnBuildingInfo.setOnClickListener(new OnClickListener() {
-	           public void onClick(View v) {
-	               Intent i = new Intent();
-	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayBuildingInfo");     
-	               startActivity(i); }});
-		
-		btnCGUWebsite.setOnClickListener(new OnClickListener() {
-	           public void onClick(View v) {
-	               Intent i = new Intent();
-	               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayCGUWebsite");     
-	               startActivity(i); }});
-		
-		btnShowDirections.setOnClickListener(new OnClickListener() {
-	           public void onClick(View v) {
-	   				// pass values to the next intent
-   				
-//	               mDestinationLat = 34.102086;
-//	               mDestinationLong = -117.712584;
-	               
-	           	int p=0;
-	        	boolean found = false;
-	        	while(p < mBuildingName.size() && !found)	
-	        	{	
-	        		String a = mBuildingName.get(p).trim();
-	            String b = spBuildingName.getSelectedItem().toString().trim();
-	     					
-	            if(a.equals(b)) found = true; else p++;
-	            
-	        	}
-	        	
-	        	if(found)
-	        	{	
-		               Intent i = new Intent();
-		               i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayDirections");
+btnCGUMap.setOnClickListener(new OnClickListener() {
+          public void onClick(View v) {
+              Intent i = new Intent();
+              i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayMap");     
+              startActivity(i); }});
+btnBuildingInfo.setOnClickListener(new OnClickListener() {
+          public void onClick(View v) {
+              Intent i = new Intent();
+              i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayBuildingInfo");     
+              startActivity(i); }});
+btnCGUWebsite.setOnClickListener(new OnClickListener() {
+          public void onClick(View v) {
+              Intent i = new Intent();
+              i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayCGUWebsite");     
+              startActivity(i); }});
+btnShowDirections.setOnClickListener(new OnClickListener() {
+          public void onClick(View v) {
+              
+          int p=0;
+       	boolean found = false;
+       	while(p < mBuildingName.size() && !found)
+       	{
+       	 String a = mBuildingName.get(p).trim();
+           String b = spBuildingName.getSelectedItem().toString().trim();
+   
+           if(a.equals(b)) found = true; else p++;
+           
+       	}
+       
+       	if(found)
+       	{
+              Intent i = new Intent();
+              i.setClassName("cgu.edu.ist380.alsuhaibanyy.alghosona", "cgu.edu.ist380.alsuhaibanyy.alghosona.DisplayDirections");
 
-	     
-		               mDestinationLat= mLatitude.get(p);				
-		               mDestinationLong= mLongitude.get(p);
-	      
-	              // mSourceLat = 34.102326;
-	               //mSourceLong = -117.714375;
-	               
+    
+              mDestinationLat= mLatitude.get(p);
+              mDestinationLong= mLongitude.get(p);
+     
+             // mSourceLat = 34.102326;
+              //mSourceLong = -117.714375;
+              
 
-    				i.putExtra("SourceLat", Double.toString(mSourceLat));
-    				i.putExtra("SourceLong", Double.toString(mSourceLong));
-    				i.putExtra("DestinationLat", Double.toString(mDestinationLat));
-    				i.putExtra("DestinationLong", Double.toString(mDestinationLong));
-	               startActivity(i); }}});	               
-	}
+    i.putExtra("SourceLat", Double.toString(mSourceLat));
+    i.putExtra("SourceLong", Double.toString(mSourceLong));
+    i.putExtra("DestinationLat", Double.toString(mDestinationLat));
+    i.putExtra("DestinationLong", Double.toString(mDestinationLong));
+    i.putExtra("BuildingName", mBuildingName.get(p));
+    i.putExtra("SchoolName", mSchoolName.get(p));
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    startActivity(i); }}});	               
+}
 
-	
-	
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu; this adds items to the action bar if it is present.
+getMenuInflater().inflate(R.menu.main, menu);
+return true;
+}
+
 //}
 
 /* Class My Location Listener */
 
 class MyLocationListener implements LocationListener{
-    	TextView mCurrentBuilding;
-	 ProgressBar bar;
-	 Context context;
-	 
-	 
-	 public MyLocationListener (Context context,TextView tvCurrentBuilding,ProgressBar bar, Double dblSourceLat, Double dblSourceLong)
-	 {
-		 this.context = context;
-		 mCurrentBuilding = tvCurrentBuilding;
-		 this.bar = bar;
-	 }
-	 
+    TextView mCurrentBuilding;
+ProgressBar bar;
+Context context;
+ 
+ 
+public MyLocationListener (Context context,TextView tvCurrentBuilding,ProgressBar bar, Double dblSourceLat, Double dblSourceLong)
+{
+this.context = context;
+mCurrentBuilding = tvCurrentBuilding;
+this.bar = bar;
+}
+ 
 
 @Override
 
@@ -178,9 +167,9 @@ public void onLocationChanged(Location loc)
 
 {
 
-	mSourceLat = loc.getLatitude();
+mSourceLat = loc.getLatitude();
 
-	mSourceLong = loc.getLongitude();
+mSourceLong = loc.getLongitude();
 
 
 NetworkTask task = new NetworkTask(); // call service in a separate thread 
@@ -245,8 +234,8 @@ private class AllBuildingNetworkTask extends AsyncTask<String, Integer, String[]
 
     @Override
     protected void onPostExecute(String result[]) {
-    	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, result);
-    	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, result);
+    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spBuildingName.setAdapter(dataAdapter); // link the result to the list view
         
@@ -254,68 +243,62 @@ private class AllBuildingNetworkTask extends AsyncTask<String, Integer, String[]
     
     }
 
-	@Override
-	protected String[] doInBackground(String... urls) {
-		// TODO Auto-generated method stub
-		String  result [] = null;
-	        HttpGet request = new HttpGet(urls[0]); // create an http get method to the service URL
-	        HttpClient httpclient = new DefaultHttpClient();  // http client
-	        HttpResponse httpResponse; // response from the service
-	        StringBuilder builder = new StringBuilder();
-	        try 
-	        {
-	        	
-	         // Call 
-	        	httpResponse = (HttpResponse)httpclient.execute(request); // execute get method
-	        	Log.d("Status", httpResponse.getStatusLine().getStatusCode()+""); // get the status if 200 then OK 
-	        	if(httpResponse.getStatusLine().getStatusCode() == 200)
-	        	{
-	        		HttpEntity entity = httpResponse.getEntity();
-				InputStream content = entity.getContent();
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(content));    // get response content from the service
-				String line;
-				while ((line = reader.readLine()) != null) {
-					builder.append(line);
-				}
-				
-				
-				// Parse
-				JSONObject  json= new JSONObject(builder.toString());   // parse content to JSON object 
-				JSONArray fields = json.getJSONArray("features");   // get the incident array from the JSON object 
-				
-				
-				int n = fields.length();
-				for(int i=0;i<n ; i++)
-				{ 
-					Log.d("JSON", fields.getJSONObject(i).getJSONObject("attributes").toString());
-					
-					// format list view as  Name + wait + distance
-					String strBuildingName = fields.getJSONObject(i).getJSONObject("attributes").getString("Building") +"\n";
-					if(strBuildingName.trim().length() != 0)
-					{
-						mBuildingID.add(fields.getJSONObject(i).getJSONObject("attributes").getString("ID").trim());  // get the Building name    					
-						mBuildingName.add(fields.getJSONObject(i).getJSONObject("attributes").getString("Building").trim());  // get the Building name    					
-						mSchoolName.add(fields.getJSONObject(i).getJSONObject("attributes").getString("School").trim());  // get the Building name    					
-						mLatitude.add(Double.parseDouble(fields.getJSONObject(i).getJSONObject("attributes").getString("Lat")));  // get the Building name    					
-						mLongitude.add(Double.parseDouble(fields.getJSONObject(i).getJSONObject("attributes").getString("Lon")));  // get the Building name    					
-					}
-					
-				}
-				result= new String [mBuildingName.size()];
-				 for(int i = 0; i < mBuildingName.size(); i++) result[i]=mBuildingName.get(i);
-	        }
-	        }
-	        catch(Exception e)
-	        {
-	        	e.printStackTrace();
-	        }
-	        //result=(String[]) mBuildingName.toArray();
-	        
-		return result;
-	        
-	        
-	}
+@Override
+protected String[] doInBackground(String... urls) {
+// TODO Auto-generated method stub
+String  result [] = null;
+       HttpGet request = new HttpGet(urls[0]); // create an http get method to the service URL
+       HttpClient httpclient = new DefaultHttpClient();  // http client
+       HttpResponse httpResponse; // response from the service
+       StringBuilder builder = new StringBuilder();
+       try 
+       {
+       
+        // Call 
+       	httpResponse = (HttpResponse)httpclient.execute(request); // execute get method
+       	Log.d("Status", httpResponse.getStatusLine().getStatusCode()+""); // get the status if 200 then OK 
+       	if(httpResponse.getStatusLine().getStatusCode() == 200)
+       	{
+       	 HttpEntity entity = httpResponse.getEntity();
+InputStream content = entity.getContent();
+BufferedReader reader = new BufferedReader(
+new InputStreamReader(content));    // get response content from the service
+String line;
+while ((line = reader.readLine()) != null) {
+builder.append(line);
+}
+// Parse
+JSONObject  json= new JSONObject(builder.toString());   // parse content to JSON object 
+JSONArray fields = json.getJSONArray("features");   // get the incident array from the JSON object 
+int n = fields.length();
+for(int i=0;i<n ; i++)
+{ 
+Log.d("JSON", fields.getJSONObject(i).getJSONObject("attributes").toString());
+// format list view as  Name + wait + distance
+String strBuildingName = fields.getJSONObject(i).getJSONObject("attributes").getString("Building") +"\n";
+if(strBuildingName.trim().length() != 0)
+{
+mBuildingID.add(fields.getJSONObject(i).getJSONObject("attributes").getString("ID").trim());  // get the Building name    
+mBuildingName.add(fields.getJSONObject(i).getJSONObject("attributes").getString("Building").trim());  // get the Building name    
+mSchoolName.add(fields.getJSONObject(i).getJSONObject("attributes").getString("School").trim());  // get the Building name    
+mLatitude.add(Double.parseDouble(fields.getJSONObject(i).getJSONObject("attributes").getString("Lat")));  // get the Building name    
+mLongitude.add(Double.parseDouble(fields.getJSONObject(i).getJSONObject("attributes").getString("Lon")));  // get the Building name    
+}
+}
+result= new String [mBuildingName.size()];
+for(int i = 0; i < mBuildingName.size(); i++) result[i]=mBuildingName.get(i);
+       }
+       }
+       catch(Exception e)
+       {
+       	e.printStackTrace();
+       }
+       //result=(String[]) mBuildingName.toArray();
+       
+return result;
+       
+       
+}
 }
  
 
@@ -325,73 +308,66 @@ private class NetworkTask extends AsyncTask<String, Integer, String[]> {
     @Override
     protected void onPostExecute(String result[]) {
          
-    	//Display 
-    	if(result.length > 0)
-    		tvCurrentBuilding.setText(result[0]);
-    	else
-    		tvCurrentBuilding.setText("Sorry, Can't find your location");
-   // 	ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.feature,result);
+    //Display 
+    if(result.length > 0)
+    tvCurrentBuilding.setText(result[0]);
+    else
+    tvCurrentBuilding.setText("Sorry, Can't find your location");
+   // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.feature,result);
        // lv.setAdapter(adapter); // link the result to the list view
         
        // Log.d("Result",result[0]); 
     }
 
-	@Override
-	protected String[] doInBackground(String... urls) {
-		// TODO Auto-generated method stub
-		String  result [] = null;
-	        HttpGet request = new HttpGet(urls[0]); // create an http get method to the service URL
-	        HttpClient httpclient = new DefaultHttpClient();  // http client
-	        HttpResponse httpResponse; // response from the service
-	        StringBuilder builder = new StringBuilder();
-	        try 
-	        {
-	        	
-	         // Call 
-	        	httpResponse = (HttpResponse)httpclient.execute(request); // execute get method
-	        	Log.d("Status", httpResponse.getStatusLine().getStatusCode()+""); // get the status if 200 then OK 
-	        	if(httpResponse.getStatusLine().getStatusCode() == 200)
-	        	{
-	        		HttpEntity entity = httpResponse.getEntity();
-				InputStream content = entity.getContent();
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(content));    // get response content from the service
-				String line;
-				while ((line = reader.readLine()) != null) {
-					builder.append(line);
-				}
-				
-				
-				// Parse
-				JSONObject  json= new JSONObject(builder.toString());   // parse content to JSON object 
-				JSONArray fields = json.getJSONArray("features");   // get the incident array from the JSON object 
-				
-				
-				int n = fields.length();
-				result= new String [n];
-				 
-				for(int i=0;i<n ; i++)
-				{ 
-					Log.d("JSON", fields.getJSONObject(i).getJSONObject("attributes").toString());
-					
-					// format list view as  Name + wait + distance
-					String strBuildingName = fields.getJSONObject(i).getJSONObject("attributes").getString("Building") +"\n";  // get the Building name
+@Override
+protected String[] doInBackground(String... urls) {
+// TODO Auto-generated method stub
+String  result [] = null;
+       HttpGet request = new HttpGet(urls[0]); // create an http get method to the service URL
+       HttpClient httpclient = new DefaultHttpClient();  // http client
+       HttpResponse httpResponse; // response from the service
+       StringBuilder builder = new StringBuilder();
+       try 
+       {
+       
+        // Call 
+       	httpResponse = (HttpResponse)httpclient.execute(request); // execute get method
+       	Log.d("Status", httpResponse.getStatusLine().getStatusCode()+""); // get the status if 200 then OK 
+       	if(httpResponse.getStatusLine().getStatusCode() == 200)
+       	{
+       	 HttpEntity entity = httpResponse.getEntity();
+InputStream content = entity.getContent();
+BufferedReader reader = new BufferedReader(
+new InputStreamReader(content));    // get response content from the service
+String line;
+while ((line = reader.readLine()) != null) {
+builder.append(line);
+}
+// Parse
+JSONObject  json= new JSONObject(builder.toString());   // parse content to JSON object 
+JSONArray fields = json.getJSONArray("features");   // get the incident array from the JSON object 
+int n = fields.length();
+result= new String [n];
+ 
+for(int i=0;i<n ; i++)
+{ 
+Log.d("JSON", fields.getJSONObject(i).getJSONObject("attributes").toString());
+// format list view as  Name + wait + distance
+String strBuildingName = fields.getJSONObject(i).getJSONObject("attributes").getString("Building") +"\n";  // get the Building name
 
-					result[i] = strBuildingName;
-					
-				}
-	        }
-	        }
-	        catch(Exception e)
-	        {
-	        	e.printStackTrace();
-	        }
-		return result;
-	        
-	        
-	}
+result[i] = strBuildingName;
+}
+       }
+       }
+       catch(Exception e)
+       {
+       	e.printStackTrace();
+       }
+return result;
+       
+       
+}
  
 }
 
 }/* End of UseGps Activity */
-
